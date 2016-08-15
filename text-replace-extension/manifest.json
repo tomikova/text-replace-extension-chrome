@@ -1,0 +1,22 @@
+{
+  "name": "Text replace extension",
+  "version": "1.0",
+  "permissions": [
+    "activeTab"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*"],
+      "js": ["replace.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "browser_action": {
+    "default_title": "Text replace"
+  },  
+  "web_accessible_resources": [
+    "simboli/*"	 
+  ],
+  
+  "manifest_version": 2
+}
