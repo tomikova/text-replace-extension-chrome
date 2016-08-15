@@ -1,22 +1,20 @@
-function GetFiles(fun)
-{
+function GetFiles(fun) {
+	
     //lokacija php skripte na serveru za slanje ajax zahtjeva
     var url = "http://localhost/Service/LoopFiles.php";
 
     var xmlhttp;
   
-    if (window.XMLHttpRequest)
-    {
+    if (window.XMLHttpRequest) {
     	//kreiranje objekta potrebnog za slanje zahtjev
         xmlhttp=new XMLHttpRequest();
     }
 	
-    xmlhttp.onreadystatechange=function()
-    {
+    xmlhttp.onreadystatechange=function() {
+    	
     	//ukoliko dođe do promjene svojstva readyState i ako je status jednak 200 (OK) poziva se funkcija koju sadrži onreadystatechange događaj
-        if (xmlhttp.readyState==4 && xmlhttp.status==200) 
-        {
-			fun.call(xmlhttp.responseText);
+        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+		fun.call(xmlhttp.responseText);
         }
     }
     //slanje GET zahtjeva na poslužitelj, asinkrono
@@ -25,8 +23,7 @@ function GetFiles(fun)
 }
 
 //funkcija za ispravno dekodiranje hrvatskih dijakritičkih znakova
-function DecodeUtf8(str) 
-{
+function DecodeUtf8(str) {
 	var DecodedString = str.replace("\u009a","š");
 	DecodedString = DecodedString.replace("\u00e8","č");
 	DecodedString = DecodedString.replace("\u00e6","ć");
@@ -36,8 +33,7 @@ function DecodeUtf8(str)
 }
 
 //funkcija za kreiranje ispravnog url-a
-function UrlEncode(str)
-{
+function UrlEncode(str) {
 	return str.replace(" ", "%20");
 }
 
@@ -46,8 +42,7 @@ GetFiles(function() {lista = this;} );
 var obj = eval('(' + lista + ')'); 
 
 for(var i in obj) {
-	if (i != 'Thumbs' && i!= 'null')
-	{
+	if (i != 'Thumbs' && i!= 'null') {
 		//za svaki ključ u odgovoru zamjeni ključ(tekst) sa pripadajućim simbolom
 		findAndReplace(DecodeUtf8(i),'<img src="'+UrlEncode(DecodeUtf8(obj[i]))+'" height="30" width="30">');
 	}
